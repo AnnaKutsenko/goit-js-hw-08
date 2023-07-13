@@ -9,10 +9,11 @@ player.on('timeupdate', throttle(onPlay, 1000));
 function onPlay(seconds) {
     localStorage.setItem("videoplayer-current-time", JSON.stringify(seconds))
 };
+if (localStorage.getItem("videoplayer-current-time") !== null) {
+    const savedTime = localStorage.getItem("videoplayer-current-time");
+    const parseSavedTime = JSON.parse(savedTime);
+    console.log(savedTime);
+    console.log(parseSavedTime.seconds);
 
-const savedTime = localStorage.getItem("videoplayer-current-time");
-const parseSavedTime = JSON.parse(savedTime);
-console.log(savedTime);
-console.log(parseSavedTime.seconds);
-
-player.setCurrentTime(parseSavedTime.seconds);
+    player.setCurrentTime(parseSavedTime.seconds);
+}

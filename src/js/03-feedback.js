@@ -9,6 +9,7 @@ const refs = {
 refs.form.addEventListener('submit', onFormSubmit);
 refs.textarea.addEventListener('input', throttle(onInput, 500));
 refs.email.addEventListener('input', throttle(onInput, 500));
+document.addEventListener("DOMContentLoaded", ready);
 
 function onFormSubmit(e) { 
     e.preventDefault();
@@ -26,4 +27,13 @@ function onInput() {
         message: refs.textarea.value,
     };
     localStorage.setItem("feedback-form-state", JSON.stringify(input))
+};
+
+function ready() {
+    if (localStorage.getItem("feedback-form-state") !== null) {
+        const savedValues = localStorage.getItem("feedback-form-state");
+        const parseSavedValues = JSON.parse(savedValues);
+        refs.email.value = parseSavedValues.emailInput;
+        refs.textarea.value = parseSavedValues.message;
+    }
 };
